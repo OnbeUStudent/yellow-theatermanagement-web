@@ -1,0 +1,47 @@
+﻿@model IEnumerable<Dii_TheaterManagement_Web.Models.MonthlySnackPackOrderViewModel>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.MonthDisplayValue)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.OrderCount)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.MonthDisplayValue)
+            </td>
+            <td>
+                @if (item.OrderExists)
+                {
+                    @Html.DisplayFor(modelItem => item.OrderCount)
+                }
+            </td>
+            <td>
+                @if (item.OrderExists)
+                {
+                    <a asp-action="Edit" asp-route-monthid="@item.MonthId">Edit</a> @("|")
+                    <a asp-action="Details" asp-route-monthid="@item.MonthId">Details</a> @("|")
+                    <a asp-action="Delete" asp-route-monthid="@item.MonthId">Cancel</a>
+                }
+                else
+                {
+                    <a asp-action="Create" asp-route-monthId="@item.MonthId">Create an Order</a>
+                }
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

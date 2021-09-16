@@ -1,0 +1,17 @@
+﻿@inject Dii_TheaterManagement_Web.Features.FakeUsers.FakeUserManager UserManager
+
+<div class="navbar-nav">
+    @if (UserManager.IsUserSignedIn())
+    {
+        <a class="nav-link text-light bg-primary" asp-controller="FakeUsers">
+            Signed in as @UserManager.GetSignedInUser().Name
+        </a>
+        <a class="nav-link text-light bg-primary" asp-controller="FakeUsers" asp-action="Logout" title="Logout">Logout</a>
+    }
+    else
+    {
+        <a class="nav-link text-light bg-primary" asp-controller="FakeUsers">
+            Login
+        </a>
+    }
+</div>

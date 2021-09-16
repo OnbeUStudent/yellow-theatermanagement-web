@@ -1,0 +1,16 @@
+﻿@model Dii_TheaterManagement_Web.Models.Alert
+@{
+    string alertSubclass = Model.AlertType.ToString().ToLowerInvariant();
+    string alertName = Model.AlertType.ToString();
+}
+<div class="alert alert-@alertSubclass" role="alert">
+    @if(Model.ShowBadge){<span class="badge badge-@alertSubclass">@alertName</span> }
+    @if (!string.IsNullOrWhiteSpace(Model.Heading))
+    {
+        <h4 class="alert-heading">@Model.Heading</h4>
+    }
+    @if (!string.IsNullOrWhiteSpace(Model.FirstPartOfContent)) {@Model.FirstPartOfContent}
+    @if (!string.IsNullOrWhiteSpace(Model.LinkHref)) {<a href="@Html.Raw(Model.LinkHref)" class="alert-link">@Model.LinkContent</a>}
+    @if (!string.IsNullOrWhiteSpace(Model.SecondPartOfContent)) {@Model.SecondPartOfContent}
+    @if (!string.IsNullOrWhiteSpace(Model.Remarks)) {<hr><p class="mb-0">@Model.Remarks</p>}
+</div>

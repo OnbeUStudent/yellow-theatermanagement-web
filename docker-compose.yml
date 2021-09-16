@@ -1,0 +1,29 @@
+version: '3.4'
+
+services:
+  dii_theatermanagement_web:
+    image: ${DOCKER_REGISTRY-}diitheatermanagementweb
+    build:
+      context: .
+      dockerfile: src/Dii_TheaterManagement_Web/Dockerfile
+
+  dii_theatermanagement_web-dapr:
+     image: "daprio/daprd:latest"
+     command: [ "./daprd", "-app-id", "dii_theatermanagement_web", "-app-port", "80" ]
+     depends_on:
+        - bcgreencardbff
+     network_mode: "service:dii_theatermanagement_web" 
+
+  dii_theatermanagement_bff.fake:
+    image: ${DOCKER_REGISTRY-}diitheatermanagementbfffake
+    build:
+      context: .
+      dockerfile: fake/Dii_TheaterManagement_Bff.Fake/Dockerfile
+
+  dii_theatermanagement_bff-dapr:
+     image: "daprio/daprd:latest"
+     command: [ "./daprd", "-app-id", "diitheatermanagementbff", "-app-port", "80" ]
+     depends_on:
+        - bcgreencardbff
+     network_mode: "service:dii_theatermanagement_bff.fake"
+

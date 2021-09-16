@@ -1,0 +1,16 @@
+﻿@model IEnumerable<Dii_TheaterManagement_Web.Models.Alert>
+
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="text-center">
+    <p><img src="~/images/dii_logo_medium.jpg" /></p>
+</div>
+
+<div class="container">
+    @foreach (var item in Model)
+    {
+        <partial name="_Alert" for="@item" />
+    }
+</div>

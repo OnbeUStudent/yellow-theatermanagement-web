@@ -1,0 +1,73 @@
+﻿@model IEnumerable<Dii_TheaterManagement_Web.Clients.FakeUser>
+@inject Dii_TheaterManagement_Web.Features.FakeUsers.FakeUserManager UserManager
+@{ string subOfSignedInUser = UserManager.IsUserSignedIn() ? UserManager.GetSignedInUser()?.Sub : ""; }
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>You may log in as any of the users listed below.</h1>
+
+<p>This is a simplified login system for demo purposes. In a non-demo app you'd have been redirected to the auth server.</p>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Sub)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.UserName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Email)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.IsSynthetic)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TheaterCode)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Sub)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.UserName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Email)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.IsSynthetic)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TheaterCode)
+                </td>
+                <td>
+                    <form asp-action="Login">
+                        <input type="hidden" value="@item.Sub" name="sub" />
+                        <input type="submit" value="Login" class="btn btn-primary" />
+                    </form>
+                    @if (item.Sub == subOfSignedInUser)
+                    {
+                        <div>Current User</div>
+                    }
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

@@ -1,0 +1,48 @@
+﻿@model IEnumerable<Dii_TheaterManagement_Web.Models.TheaterBookingViewModel>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.MonthDisplayValue)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Movie)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.MonthDisplayValue)
+                </td>
+                <td>
+                    @if (item.HasBooking)
+                    {
+                        @Html.DisplayFor(modelItem => item.Movie.Title)
+                    }
+                </td>
+                <td>
+                    @if (item.HasBooking)
+                    {
+                        <a asp-action="Edit" asp-route-monthid="@item.MonthId">Edit Booking</a> @("|")
+                        <a asp-action="Details" asp-route-monthid="@item.MonthId">Booking Details</a> @("|")
+                        <a asp-action="Delete" asp-route-monthid="@item.MonthId">Delete Booking</a>
+                    }
+                    else
+                    {
+                        <a asp-action="Create" asp-route-monthId="@item.MonthId">Book a Movie</a>
+                    }
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
